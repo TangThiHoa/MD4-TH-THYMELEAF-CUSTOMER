@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Customers</h3>
+<p>
+    <a th:href="@{/customer/create}">        <!--  th:href khai báo đường link trong thẻ a.   -->
+        Add new customer
+    </a>
+</p>
+
+<table id = "customers">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    ${customers} là danh sách khách hàng sẽ được lặp, chính là model customers được controller truyền lên view.-->
+    <tr th:each="row,rowStat : ${customers}">
+        <!-- th:each tương ứng với câu lệnh for each. -->
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getEmail()}"></td>
+        <td th:text="${row.getAddress()}"></td>
+<!--th:text dùng để đổ dữ liệu dưới dạng text vào thẻ HTML-->
+        <!--row đại diện cho một khách hàng tại một bước lặp cụ thể.-->
+        <td><a th:href="@{/customer/{id}/edit(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/customer/{id}/delete(id=${row.getId()})}">delete</a></td>
+        <td><a th:href="@{/customer/{id}/view(id=${row.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+
+</body>
+</html>
